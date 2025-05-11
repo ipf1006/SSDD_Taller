@@ -14,4 +14,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Ejecuta el JAR generado
-CMD ["java", "-jar", "target/p02-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/taller-0.0.1-SNAPSHOT.jar"]

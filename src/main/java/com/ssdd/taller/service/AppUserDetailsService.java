@@ -1,7 +1,7 @@
-package com.ssdd.p02.service;
+package com.ssdd.taller.service;
 
-import com.ssdd.p02.model.Usuario;
-import com.ssdd.p02.repository.UsuarioRepository;
+import com.ssdd.taller.model.Usuario;
+import com.ssdd.taller.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

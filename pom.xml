@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ssdd</groupId>
-	<artifactId>p02</artifactId>
+	<artifactId>taller</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>p02</name>
-	<description>Sistemas Distribuidos - Práctica 02</description>
+	<name>taller</name>
+	<description>Sistemas Distribuidos - Taller</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -63,13 +63,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>

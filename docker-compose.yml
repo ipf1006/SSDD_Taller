@@ -14,20 +14,9 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql # Asocia volumen para persistencia de datos (los datos persisten aunque se borre el contenedor)
 
-  ssdd_p02_api:
-    image: ipf1006/api:latest
-    container_name: ssdd_p02_api
-    restart: always
-    env_file:
-      - ./.env
-    ports:
-      - "${FLASK_PORT}:5000"
-    depends_on:
-      - mysql
-
-  ssdd_p02:
+  ssdd_taller:
     build: ./
-    container_name: ssdd_p02
+    container_name: ssdd_taller
     restart: always
     env_file:
       - ./.env
@@ -35,7 +24,6 @@ services:
       - "${SPRING_PORT}:8080"
     depends_on:
       - mysql
-      - ssdd_p02_api
 
 volumes:
   mysql_data: # Volumen nombrado para almacenar datos de MySQL

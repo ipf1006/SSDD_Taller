@@ -1,7 +1,7 @@
-package com.ssdd.p02;
+package com.ssdd.taller;
 
-import com.ssdd.p02.model.Usuario;
-import com.ssdd.p02.repository.UsuarioRepository;
+import com.ssdd.taller.model.Usuario;
+import com.ssdd.taller.repository.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

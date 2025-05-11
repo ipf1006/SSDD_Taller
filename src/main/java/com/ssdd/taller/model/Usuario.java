@@ -1,4 +1,4 @@
-package com.ssdd.p02.model;
+package com.ssdd.taller.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

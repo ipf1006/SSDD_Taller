@@ -1,13 +1,13 @@
-package com.ssdd.p02;
+package com.ssdd.taller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class P02Application {
+public class TallerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(P02Application.class, args);
+		SpringApplication.run(TallerApplication.class, args);
 	}
 
 }

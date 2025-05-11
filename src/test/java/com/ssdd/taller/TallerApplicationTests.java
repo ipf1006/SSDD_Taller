@@ -1,10 +1,10 @@
-package com.ssdd.p02;
+package com.ssdd.taller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class P02ApplicationTests {
+class TallerApplicationTests {
 
 	@Test
 	void contextLoads() {

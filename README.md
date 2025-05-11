@@ -1,8 +1,6 @@
-# Práctica 2 - Sistema con Spring Boot y APIs en Python
+# Taller - Aplicación web para la gestión de gimnasios
 
-Este proyecto combina **Spring Boot**, **Flask** y **MySQL**, todo unificado con **Docker Compose**. 
-
-Se ha integrado tanto una **API externa** como una **API propia** desarrollada en Flask, que accede a una base de datos relacional.
+**SDFitness** es una aplicación web para la gestión de una cadena de gimnasios.
 
 ---
 ## 🚀 Tecnologías utilizadas

@@ -1,6 +1,6 @@
-package com.ssdd.p02.repository;
+package com.ssdd.taller.repository;
 
-import com.ssdd.p02.model.Usuario;
+import com.ssdd.taller.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

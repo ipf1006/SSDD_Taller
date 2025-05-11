@@ -1,4 +1,4 @@
-package com.ssdd.p02.config;
+package com.ssdd.taller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
