@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de excepciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+
+    <h4>Excepciones de apertura y lectura de archivos</h4>
+    <div class="d-grid gap-3 mt-4">
+        <a class="btn btn-primary" href="/api/externa/archivo/correcto">Leer archivo</a>
+        <a class="btn btn-outline-danger" href="/api/externa/archivo/inexistente">Archivo no encontrado</a>
+        <a class="btn btn-outline-danger" href="/api/externa/archivo/restringido">Archivo restringido (accede ADMIN)</a>
+    </div>
+
+    <h4 class="mt-5">Excepciones de accesos a bases de datos (API propia)</h4>
+    <div class="d-grid gap-3 mt-4">
+        <a class="btn btn-primary" href="/api/db/listado-usuarios">Consultar tabla existente</a>
+        <a class="btn btn-outline-danger" href="/api/db/tabla-inexistente">Consultar tabla inexistente</a>
+        <a class="btn btn-outline-danger" href="/api/db/conexion-fallida">Fallo de conexión</a>
+        <a class="btn btn-outline-danger" href="/api/db/valores-duplicados">Insertar valores duplicados</a>
+        <a class="btn btn-outline-danger" href="/api/db/valores-nulos">Insertar valores nulos</a>
+    </div>
+
+    <h4 class="mt-5">Excepciones de llamadas a APIs de terceros (REST Countries)</h4>
+    <div class="d-grid gap-3 mt-4">
+        <a class="btn btn-primary" href="/api/externa/recurso-existente">Consultar país</a>
+        <a class="btn btn-outline-danger" href="/api/externa/recurso-inexistente">Recurso inexistente</a>
+        <a class="btn btn-outline-danger" href="/api/externa/solicitud-erronea">Solicitud mal formada</a>
+    </div>
+
+    <!-- Modal de Error -->
+    <div class="modal fade" id="errorModal" th:if="${tipoModal}=='error'">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Error</h5>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" th:text="${resultado}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de información -->
+    <div class="modal fade" id="infoModal" th:if="${tipoModal}=='info'">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-primary">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" th:text="${archivo}">Nombre del archivo</h5>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" th:text="${contenido}">Contenido del archivo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón volver al inicio -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">Volver al inicio</a>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/ //Abre una sección CDATA
+    var tipo = /*[[${tipoModal}]]*/ null;
+    if (tipo === 'error') {
+        new bootstrap.Modal(document.getElementById('errorModal')).show();
+    } else if (tipo === 'info') {
+        new bootstrap.Modal(document.getElementById('infoModal')).show();
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>
