@@ -2,6 +2,7 @@ package com.ssdd.taller.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -12,12 +13,16 @@ public class Usuario {
     private Long id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
-    private String nombre;
+    @Size(min = 3, max = 25)
+    @Column(unique = true, nullable = false)
+    private String username;
 
     @NotBlank(message = "El email no puede estar vacío")
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "La contraseña no puede estar vacía")
+    @Size(min = 6, max = 25)
     private String password;
 
     @NotBlank(message = "Debe asignarse un rol")
@@ -27,8 +32,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombre, String email, String password, String rol) {
-        this.nombre = nombre;
+    public Usuario(String username, String email, String password, String rol) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.rol = rol;
@@ -39,12 +44,12 @@ public class Usuario {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

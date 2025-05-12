@@ -23,7 +23,7 @@ public class SecurityConfig {
                 // Definimos permisos de acceso
                 .authorizeHttpRequests(auth -> auth
                         // Permitimos todos a página de inicio, login y recursos estáticos
-                        .requestMatchers("/", "/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                         // Restringir esta ruta solo a usuarios con rol ADMIN
                         .requestMatchers("/api/externa/archivo/restringido").hasRole("ADMIN")
                         // El resto requiere autenticación

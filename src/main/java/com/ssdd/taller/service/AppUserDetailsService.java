@@ -26,14 +26,14 @@ public class AppUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Buscamos el usuario (por email) en la tabla usuarios
-        Optional<Usuario> op = usuarioRepo.findByEmail(username);
+        Optional<Usuario> op = usuarioRepo.findByUsername(username);
         Usuario usuario = op.orElseThrow(
                 () -> new UsernameNotFoundException("Usuario no encontrado: " + username)
         );
 
         // UserDetails que Spring Security necesita
         return User.builder()
-                .username(usuario.getEmail())
+                .username(usuario.getUsername())
                 .password(usuario.getPassword()) // Hash guardado en BD
                 .roles(usuario.getRol())
                 .build();
