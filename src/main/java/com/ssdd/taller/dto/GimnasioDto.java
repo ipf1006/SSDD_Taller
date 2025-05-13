@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class GimnasioDto {
-    private Long id;
     private String nombre;
     private String direccion;
     private double latitud;
