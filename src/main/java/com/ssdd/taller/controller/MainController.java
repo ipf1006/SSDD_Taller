@@ -20,11 +20,12 @@ public class MainController {
         return "login";
     }
 
-
     // Pantalla de acceso denegado
     @GetMapping("/acceso-denegado")
     public String accesoDenegado() {
         return "acceso-denegado";
     }
 
+    @GetMapping("/gimnasios")
+    public String gimnasios() { return "gimnasios"; }
 }

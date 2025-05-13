@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Gimnasios — SD Fitness</title>
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link crossorigin=""
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          rel="stylesheet">
+
+    <!-- Leaflet JS -->
+    <script crossorigin=""
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+            src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js">
+    </script>
+
+    <style>
+        #map {
+            margin-top: 11vh;
+            height: 89vh;
+            width: 100%;
+        }
+        /* Asegurarnos de que los <strong> dentro de los popups de Leaflet estén en negrita */
+        .leaflet-popup-content-wrapper strong {
+            font-weight: 700 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light text-dark">
+<!-- Barra de navegación fija -->
+<nav class="navbar navbar-light bg-white shadow-sm fixed-top py-3">
+    <div class="container-md d-flex align-items-center">
+        <!-- Logo -->
+        <a class="navbar-brand" th:href="@{/}">
+            <img alt="Logo"
+                 style="max-height: 90px;"
+                 th:src="@{/images/logo.png}">
+        </a>
+
+        <!-- Botón Gimnasios (activo) -->
+        <div class="flex-grow-1 text-center">
+            <a class="btn btn-outline-secondary active" th:href="@{/gimnasios}">Gimnasios</a>
+        </div>
+
+        <!-- Botón Iniciar sesión -->
+        <div>
+            <a class="btn btn-outline-primary" th:href="@{/login}">Iniciar sesión</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenedor del mapa -->
+<div id="map"></div>
+
+<!-- Inicialización del mapa usando Leaflet y datos vía fetch -->
+<script>
+    (async () => {
+        // Pedimos la lista de gimnasios al endpoint REST
+        // La respuesta es un objeto Response que contiene el JSON
+        const respuesta = await fetch('/api/gimnasios');
+        // Parseamos automáticamente ese JSON a un array de objetos JS
+        const gimnasios = await respuesta.json();
+
+        // Creamos el mapa en el <div id="map">, centrado y con zoom 6
+        const map = L.map('map').setView([36.72016, -4.42034], 6);
+        // Añadimos la capa de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Personalizamos el marcador
+        const blackIcon = new L.Icon({
+            iconUrl: '/images/marcador.png',
+            shadowUrl: '/images/sombra-marcador.png',
+            iconSize:     [25, 41],   // Tamaño del icono (px)
+            iconAnchor:   [12, 41],   // Punto del icono
+            popupAnchor:  [1, -34],   // Desplazamiento del popup respecto al icono
+            shadowSize:   [41, 41]    // Tamaño de la sombra (px)
+        });
+
+        // Recorremos cada gimnasio y pintamos un marcador
+        gimnasios.forEach(g => {
+            L.marker([g.latitud, g.longitud], { icon: blackIcon })
+                .addTo(map)
+                .bindPopup(`<strong>${g.nombre}</strong><br>${g.direccion}`);
+        });
+    })();
+</script>
+
+</body>
+</html>
