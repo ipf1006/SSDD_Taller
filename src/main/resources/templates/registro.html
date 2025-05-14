@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Iniciar sesión — SD Fitness</title>
+    <title>Regístrate — SD Fitness</title>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link crossorigin="anonymous"
           href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css"
@@ -14,14 +14,16 @@
             height: 100%;
             margin: 0;
         }
-        .login-container {
+
+        .registro-container {
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
         }
-        .login-card {
+
+        .registro-card {
             width: 100%;
             max-width: 400px;
             padding: 2rem;
@@ -42,53 +44,70 @@
         </a>
         <div class="flex-grow-1"></div>
         <div>
-            <a class="btn btn-outline-secondary" th:href="@{/}">Inicio</a>
+            <a class="btn btn-outline-secondary" th:href="@{/login}">Iniciar sesión</a>
         </div>
     </div>
 </nav>
 
 <!-- Contenedor centrado -->
-<div class="login-container">
-    <div class="login-card">
-        <h3 class="text-center mb-4">Iniciar sesión</h3>
+<div class="registro-container">
+    <div class="registro-card">
+        <h3 class="text-center mb-4">Inscríbete</h3>
 
-        <div class="alert alert-danger" role="alert" th:if="${param.error}">
-            Usuario o contraseña incorrectos.
+        <div class="alert alert-danger text-center" role="alert" th:if="${param.error}">
+            Se ha producido un error. <br/> Por favor, revisa los datos introducidos.
         </div>
-        <div class="alert alert-success" role="alert" th:if="${param.logout}">
-            Has cerrado sesión correctamente.
+        <div class="alert alert-success text-center" role="alert" th:if="${param.success}">
+            Te has registrado correctamente. <br/> Ya puedes iniciar sesión.
         </div>
 
-        <form method="post" th:action="@{/login}">
+        <form method="post" th:action="@{/inscribete}">
             <div class="mb-3">
                 <label class="form-label" for="username">Usuario</label>
                 <input autofocus
                        class="form-control"
                        id="username"
                        name="username"
-                       placeholder="Introduce el usuario"
+                       placeholder="Introduce un nombre de usuario"
                        required
                        type="text"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Correo electrónico</label>
+                <input class="form-control"
+                       id="email"
+                       name="email"
+                       placeholder="Introduce un correo electrónico"
+                       required
+                       type="email"/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Contraseña</label>
                 <input class="form-control"
                        id="password"
                        name="password"
-                       placeholder="Introduce la contraseña"
+                       placeholder="Introduce una contraseña"
                        required
                        type="password"/>
             </div>
-            <!-- Con la dependencia thymeleaf-extras-springsecurity6 Thymeleaf añade automáticamente el CSRF token -->
+            <div class="mb-3">
+                <label class="form-label" for="confirmPassword">Confirmar contraseña</label>
+                <input class="form-control"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       placeholder="Introduce de nuevo la contraseña"
+                       required
+                       type="password"/>
+            </div>
             <div class="d-grid">
                 <button class="btn btn-primary btn-lg" type="submit">
-                    Entrar
+                    Registrarse
                 </button>
             </div>
         </form>
 
-        <p class="text-center mt-3"> ¿No tienes cuenta?
-            <a th:href="@{/registro}">Regístrate</a>
+        <p class="text-center mt-3"> ¿Ya tienes cuenta?
+            <a th:href="@{/login}">Inicia sesión</a>
         </p>
     </div>
 </div>
