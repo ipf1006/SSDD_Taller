@@ -61,9 +61,16 @@ public class AdminController {
      * Procesa los cambios de username/email/rol para ese usuario.
      */
     @PostMapping("/{id}/editar")
-    public String procesarEdicion(@PathVariable Long id, @ModelAttribute("usuarioDto") UsuarioDto usuarioDto) {
+    public String procesarEdicion(@PathVariable Long id, @ModelAttribute("usuarioDto") UsuarioDto usuarioDto, Model model) {
         // Lógica para actualizar username, email o rol (no password)
-        usuarioService.actualizarDatos(id, usuarioDto);
-        return "redirect:/admin/usuarios";
+        try {
+            usuarioService.actualizarDatos(id, usuarioDto);
+            return "redirect:/admin/usuarios";
+        } catch (IllegalArgumentException ex) {
+            // Si hay duplicado de username o email
+            model.addAttribute("mensajeError", ex.getMessage());
+            model.addAttribute("usuarioDto", usuarioDto);
+            return "admin-editar-usuario";
+        }
     }
 }
