@@ -23,7 +23,13 @@
             <img alt="Logo" style="max-height:90px;" th:src="@{/images/logo.png}">
         </a>
         <div>
-            <a class="btn btn-outline-primary" th:href="@{/logout}">Cerrar sesión</a>
+            <form class="d-inline" method="post" th:action="@{/logout}">
+                <!-- Token CSRF -->
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <button class="btn btn-outline-primary" type="submit">
+                    Cerrar sesión
+                </button>
+            </form>
         </div>
     </div>
 </nav>
@@ -71,9 +77,9 @@
 </div>
 
 <!-- Modal de confirmación de eliminación-->
-<div id="confirmarEliminacionModal"
+<div aria-hidden="true"
      class="modal fade"
-     aria-hidden="true"
+     id="confirmarEliminacionModal"
      tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 21rem;">
         <div class="modal-content border-danger shadow">
