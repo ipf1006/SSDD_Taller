@@ -59,6 +59,12 @@
             Has cerrado sesión correctamente.
         </div>
 
+        <!-- Mensaje informativo tras edición de username -->
+        <div class="alert alert-success"
+             th:if="${infoMessage}"
+             th:text="${infoMessage}">
+        </div>
+
         <form method="post" th:action="@{/login}">
             <div class="mb-3">
                 <label class="form-label" for="username">Usuario</label>

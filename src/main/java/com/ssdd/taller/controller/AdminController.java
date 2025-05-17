@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/usuarios")
@@ -64,7 +63,7 @@ public class AdminController {
     public String procesarEdicion(@PathVariable Long id, @ModelAttribute("usuarioDto") UsuarioDto usuarioDto, Model model) {
         // Lógica para actualizar username, email o rol (no password)
         try {
-            usuarioService.actualizarDatos(id, usuarioDto);
+            usuarioService.actualizarDatosPorAdmin(id, usuarioDto);
             return "redirect:/admin/usuarios";
         } catch (IllegalArgumentException ex) {
             // Si hay duplicado de username o email

@@ -1,5 +1,6 @@
 package com.ssdd.taller.service;
 
+import com.ssdd.taller.dto.PerfilUsuarioDto;
 import com.ssdd.taller.dto.UsuarioDto;
 import com.ssdd.taller.dto.UsuarioPswDto;
 import com.ssdd.taller.model.Usuario;
@@ -115,7 +116,7 @@ public class UsuarioService {
      * Actualiza los datos de un usuario existente.
      */
     @Transactional
-    public Usuario actualizarDatos(Long id, UsuarioDto dto) {
+    public void actualizarDatosPorAdmin(Long id, UsuarioDto dto) {
         Usuario u = buscarPorId(id);
 
         // Evitar duplicar username o email en otros registros
@@ -131,6 +132,24 @@ public class UsuarioService {
         // Asignar nuevos valores
         modelMapper.map(dto, u);
 
-        return usuarioRepository.save(u);
+        usuarioRepository.save(u);
+    }
+
+    @Transactional
+    public void actualizarDatosPorUser(String username, PerfilUsuarioDto dto) {
+        Usuario entidad = buscarPorUsername(username);
+
+        // Compruebo duplicados igual que antes
+        Optional<Usuario> datoExistente = usuarioRepository.findByUsername(dto.getUsername());
+        if (datoExistente.isPresent() && !datoExistente.get().getId().equals(entidad.getId())) {
+            throw new IllegalArgumentException("El nombre de usuario ya está en uso.");
+        }
+        datoExistente = usuarioRepository.findByEmail(dto.getEmail());
+        if (datoExistente.isPresent() && !datoExistente.get().getId().equals(entidad.getId())) {
+            throw new IllegalArgumentException("El email ya está en uso.");
+        }
+
+        modelMapper.map(dto, entidad);
+        usuarioRepository.save(entidad);
     }
 }
