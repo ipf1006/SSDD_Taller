@@ -1,5 +1,6 @@
 package com.ssdd.taller.config;
 
+import com.ssdd.taller.security.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final MyAuthenticationSuccessHandler successHandler;
+
+    public SecurityConfig(MyAuthenticationSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -24,15 +31,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Permitimos todos a página de inicio, login y recursos estáticos
                         .requestMatchers("/", "/login", "/registro","/gimnasios","/api/gimnasios", "/css/**", "/js/**", "/images/**").permitAll()
-                        // Restringir esta ruta solo a usuarios con rol ADMIN
-                        .requestMatchers("/api/externa/archivo/restringido").hasRole("ADMIN")
+                        // Restringir esta ruta solo a usuarios con ROLE_ADMIN
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/usuario/**").hasRole("USER")
                         // El resto requiere autenticación
                         .anyRequest().authenticated()
                 )
                 // Configuramos el formulario de login
                 .formLogin(form -> form
                         .loginPage("/login")           // URL de la vista de login
-                        .defaultSuccessUrl("/?login", true)  // A dónde ir tras login correcto
+                        .successHandler(successHandler) // Redirige según rol tras login
+                        .failureUrl("/login?error=true") // En caso de que falle el login
                         .permitAll()
                 )
                 // Configuramos logout

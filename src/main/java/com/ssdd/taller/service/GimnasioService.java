@@ -5,6 +5,7 @@ import com.ssdd.taller.model.Gimnasio;
 import com.ssdd.taller.repository.GimnasioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class GimnasioService {
         this.modelMapper = modelMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<GimnasioDto> listarGimnasiosDto() {
         // Lee todas las entidades
         List<Gimnasio> gimnasios = gimnasioRepository.findAll();

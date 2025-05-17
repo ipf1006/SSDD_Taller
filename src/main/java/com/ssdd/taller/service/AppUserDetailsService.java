@@ -12,7 +12,7 @@ import java.util.Optional;
 
 /**
  * Servicio que Spring Security utiliza para cargar los datos del usuario
- * (username (email) y contraseña) desde la base de datos.
+ * (username y contraseña) desde la base de datos.
  */
 @Service
 public class AppUserDetailsService implements UserDetailsService {
@@ -25,7 +25,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Buscamos el usuario (por email) en la tabla usuarios
+        // Buscamos el usuario (por username) en la tabla usuarios
         Optional<Usuario> op = usuarioRepo.findByUsername(username);
         Usuario usuario = op.orElseThrow(
                 () -> new UsernameNotFoundException("Usuario no encontrado: " + username)
@@ -35,7 +35,7 @@ public class AppUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(usuario.getUsername())
                 .password(usuario.getPassword()) // Hash guardado en BD
-                .roles(usuario.getRol())
+                .roles(usuario.getRole())
                 .build();
     }
 }
