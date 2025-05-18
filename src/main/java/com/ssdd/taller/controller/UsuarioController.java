@@ -47,14 +47,19 @@ public class UsuarioController {
     @PostMapping("/perfil")
     public String actualizarPerfil(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute("perfilUsuarioDto") PerfilUsuarioDto dto, RedirectAttributes redirectAttributes, Model model) {
         try {
-            // Guardar los cambios en la BD
-            usuarioService.actualizarDatosPorUser(userDetails.getUsername(), dto);
-            // Forzar cierre de sesión (limpia el contexto de seguridad)
-            SecurityContextHolder.clearContext();
-            // Mensaje informativo
-            redirectAttributes.addFlashAttribute("infoMessage", "Datos actualizados correctamente. Por favor, entra de nuevo.");
-            // Redirigir a login
-            return "redirect:/login";
+            // Llamamos al servicio y vemos si realmente se editó alguno de los campos
+            boolean modificacionRealizada = usuarioService.actualizarDatosPorUser(userDetails.getUsername(), dto);
+            if(modificacionRealizada) {
+                // Forzar cierre de sesión (limpia el contexto de seguridad)
+                SecurityContextHolder.clearContext();
+                // Mensaje informativo
+                redirectAttributes.addFlashAttribute("infoMessage", "Datos actualizados correctamente. Por favor, entra de nuevo.");
+                // Redirigir a login
+                return "redirect:/login";
+            }else{
+                model.addAttribute("warningMessage", "No se detectaron cambios en tu perfil.");
+                return "usuario-perfil";
+            }
         } catch (IllegalArgumentException ex) {
             // Si hay error (username o email duplicado)
             model.addAttribute("errorMessage", ex.getMessage());

@@ -136,8 +136,9 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void actualizarDatosPorUser(String username, PerfilUsuarioDto dto) {
+    public boolean actualizarDatosPorUser(String username, PerfilUsuarioDto dto) {
         Usuario entidad = buscarPorUsername(username);
+        boolean modificacionRealizada = false;
 
         // Compruebo duplicados igual que antes
         Optional<Usuario> datoExistente = usuarioRepository.findByUsername(dto.getUsername());
@@ -149,7 +150,12 @@ public class UsuarioService {
             throw new IllegalArgumentException("El email ya está en uso.");
         }
 
-        modelMapper.map(dto, entidad);
-        usuarioRepository.save(entidad);
+        if (!entidad.getUsername().equals(dto.getUsername()) || !entidad.getEmail().equals(dto.getEmail())) {
+            modelMapper.map(dto, entidad);
+            modificacionRealizada = true;
+            usuarioRepository.save(entidad);
+        }
+
+        return modificacionRealizada;
     }
 }

@@ -34,11 +34,20 @@
 <div class="container content">
     <h2 class="mb-4">Mi Perfil</h2>
 
-    <!-- Mensaje de éxito o error -->
+    <!-- Mensaje de éxito -->
     <div class="alert alert-success" th:if="${param.success}">
         Datos actualizados correctamente.
     </div>
-    <div class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+    <!-- Mensaje de error -->
+    <div class="alert alert-danger"
+         th:if="${errorMessage}"
+         th:text="${errorMessage}">
+    </div>
+    <!-- Mensaje de advertencia -->
+    <div class="alert alert-warning"
+         th:if="${warningMessage}"
+         th:text="${warningMessage}">
+    </div>
 
     <!-- Formulario enlazado a PerfilUsuarioDto -->
     <form class="row g-3"
