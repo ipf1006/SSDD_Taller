@@ -66,4 +66,15 @@ public class UsuarioController {
             return "usuario-perfil";
         }
     }
+
+    @PostMapping("/baja")
+    public String darseDeBaja(@AuthenticationPrincipal UserDetails principal, RedirectAttributes redirectAttributes) {
+        // Borrar la cuenta
+        usuarioService.eliminarPorUsername(principal.getUsername());
+        // Limpiar sesión
+        SecurityContextHolder.clearContext();
+        // Mensaje para login
+        redirectAttributes.addFlashAttribute("infoMessage", "Tu cuenta ha sido dada de baja. ¡Hasta pronto!");
+        return "redirect:/login";
+    }
 }

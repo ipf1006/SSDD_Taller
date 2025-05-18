@@ -76,11 +76,42 @@
                    type="email"/>
         </div>
 
-        <!-- Botón guardar -->
         <div class="col-12 text-end mt-4">
+            <!-- Botón guardar -->
             <button class="btn btn-outline-primary" type="submit">Guardar cambios</button>
+            <!-- Botón Darme de baja -->
+            <button class="btn btn-outline-danger"
+                    data-bs-target="#confirmarBajaModal"
+                    data-bs-toggle="modal"
+                    type="button"> Darme de baja
+            </button>
         </div>
     </form>
+
+    <!-- Modal de confirmación de baja -->
+    <div aria-hidden="true" class="modal fade" id="confirmarBajaModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 21rem;">
+            <div class="modal-content border-danger shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirmar baja</h5>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="fs-5 mb-0">¿Estás seguro de que quieres darte de baja?</p>
+                </div>
+                <div class="modal-footer py-2">
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                        Cancelar
+                    </button>
+                    <!-- Formulario POST para dar de baja -->
+                    <form class="d-inline" method="post" th:action="@{/usuario/baja}">
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Confirmar baja</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script crossorigin="anonymous"

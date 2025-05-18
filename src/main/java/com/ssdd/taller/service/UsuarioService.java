@@ -135,6 +135,9 @@ public class UsuarioService {
         usuarioRepository.save(u);
     }
 
+    /**
+     * El propio usuario actualiza sus datos.
+     */
     @Transactional
     public boolean actualizarDatosPorUser(String username, PerfilUsuarioDto dto) {
         Usuario entidad = buscarPorUsername(username);
@@ -157,5 +160,14 @@ public class UsuarioService {
         }
 
         return modificacionRealizada;
+    }
+
+    /**
+     * El propio usuario elimina su cuenta.
+     */
+    @Transactional
+    public void eliminarPorUsername(String username) {
+        Usuario u = usuarioRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("Usuario “" + username + "” no encontrado."));
+        usuarioRepository.delete(u);
     }
 }
