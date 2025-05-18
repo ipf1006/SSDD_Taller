@@ -20,12 +20,6 @@ public class MainController {
         return "login";
     }
 
-    // Pantalla de registro
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
-    }
-
     // Pantalla del mapa con los gimnasios disponibles
     @GetMapping("/gimnasios")
     public String gimnasios() { return "gimnasios"; }
