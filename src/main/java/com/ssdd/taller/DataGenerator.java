@@ -18,9 +18,12 @@ public class DataGenerator {
 
             // —— Usuarios iniciales ——
             if (usuarioRepository.count() == 0) {
-                usuarioRepository.save(new Usuario("Ignacio", "ipf1006@alu.ubu.es", passwordEncoder.encode("admin123"), "ADMIN"));
-                usuarioRepository.save(new Usuario("Usuario1", "usuario1@alu.ubu.es", passwordEncoder.encode("user123"), "USER"));
-                usuarioRepository.save(new Usuario("Usuario2", "usuario2@alu.ubu.es", passwordEncoder.encode("user123"), "USER"));
+                usuarioRepository.save(new Usuario("Ignacio", "ipf1006@alu.ubu.es", passwordEncoder.encode("Admin123."), "ADMIN"));
+                usuarioRepository.save(new Usuario("Usuario1", "usuario1@alu.ubu.es", passwordEncoder.encode("User123."), "USER"));
+                usuarioRepository.save(new Usuario("Usuario2", "usuario2@alu.ubu.es", passwordEncoder.encode("User123."), "USER"));
+                usuarioRepository.save(new Usuario("Usuario3", "usuario3@alu.ubu.es", passwordEncoder.encode("User123."), "USER"));
+                usuarioRepository.save(new Usuario("Usuario4", "usuario4@alu.ubu.es", passwordEncoder.encode("User123."), "USER"));
+                usuarioRepository.save(new Usuario("Usuario5", "usuario5@alu.ubu.es", passwordEncoder.encode("User123."), "USER"));
                 System.out.println("Usuarios insertados correctamente.");
             } else {
                 System.out.println("Los usuarios ya existen.");
