@@ -36,69 +36,72 @@
 
 <!-- Contenido principal -->
 <div class="container content">
-    <h2 class="mb-4">Editar Usuario</h2>
-
     <!-- Mostrar mensaje de error en caso de usuario o email duplicado -->
     <div class="alert alert-danger" th:if="${mensajeError}"
          th:text="${mensajeError}">
     </div>
 
-    <!-- Formulario que envía un POST protegido por CSRF -->
-    <form class="row g-3"
-          method="post"
-          th:action="@{/admin/usuarios/{id}/editar(id=${usuarioDto.id})}"
-          th:object="${usuarioDto}">
-        <!-- Token CSRF para que Spring Security valide que la petición viene de esta sesión -->
-        <input th:name="${_csrf.parameterName}"
-               th:value="${_csrf.token}"
-               type="hidden"/>
+    <div class="card p-4 shadow-sm">
+        <h4 class="mb-4">Editar Usuario</h4>
 
-        <!-- Username -->
-        <div class="col-md-6">
-            <label class="form-label" for="username">Usuario</label>
-            <input class="form-control"
-                   id="username"
-                   maxlength="25"
-                   minlength="5"
-                   placeholder="Introduce el nombre de usuario"
-                   required
-                   th:field="*{username}"
-                   type="text"/>
-        </div>
+        <!-- Formulario que envía un POST protegido por CSRF -->
+        <form method="post"
+              th:action="@{/admin/usuarios/{id}/editar(id=${usuarioDto.id})}"
+              th:object="${usuarioDto}">
+            <!-- Token CSRF para que Spring Security valide que la petición viene de esta sesión -->
+            <input th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"
+                   type="hidden"/>
 
-        <!-- Email -->
-        <div class="col-md-6">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control"
-                   id="email"
-                   placeholder="usuario@alu.ubu.es"
-                   required
-                   th:field="*{email}"
-                   type="email"/>
-        </div>
+            <!-- Username -->
+            <div class="mb-3">
+                <label class="form-label" for="username">Usuario</label>
+                <input class="form-control"
+                       id="username"
+                       maxlength="25"
+                       minlength="5"
+                       placeholder="Introduce el nombre de usuario"
+                       required
+                       th:field="*{username}"
+                       type="text"/>
+            </div>
 
-        <!-- Rol -->
-        <div class="col-md-6">
-            <label class="form-label" for="role">Rol</label>
-            <select class="form-select"
-                    id="role"
-                    required
-                    th:field="*{role}">
-                <option value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-        </div>
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control"
+                       id="email"
+                       placeholder="usuario@alu.ubu.es"
+                       required
+                       th:field="*{email}"
+                       type="email"/>
+            </div>
 
-        <!-- Botones -->
-        <div class="col-12 d-flex justify-content-end mt-4">
-            <a class="btn btn-outline-secondary me-2"
-               th:href="@{/admin/usuarios}"> Cancelar
-            </a>
-            <button class="btn btn-outline-primary"
-                    type="submit"> Guardar cambios
-            </button>
-        </div>
-    </form>
+            <!-- Rol -->
+            <div class="mb-3">
+                <label class="form-label" for="role">Rol</label>
+                <select class="form-select"
+                        id="role"
+                        required
+                        th:field="*{role}">
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-grid mt-4">
+                <button class="btn btn-outline-primary"
+                        type="submit"> Guardar cambios
+                </button>
+            </div>
+            <div class="d-grid mt-4">
+                <a class="btn btn-outline-secondary"
+                   th:href="@{/admin/usuarios}"> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- Bootstrap JS Bundle -->

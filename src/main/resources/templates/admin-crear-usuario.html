@@ -5,7 +5,8 @@
     <title>Crear Usuario — Administración SD Fitness</title>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link crossorigin="anonymous"
-          href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css" rel="stylesheet"/>
+          href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css"
+          rel="stylesheet"/>
     <style>
         .content {
             margin-top: 15vh;
@@ -15,15 +16,19 @@
 <body class="bg-light text-dark">
 
 <!-- Navbar fija -->
-<nav class="navbar navbar-light bg-white shadow-sm fixed-top py-3">
+<nav class="navbar navbar-light bg-white shadow-sm fixed-top py-3" style="z-index:10;">
     <div class="container-md d-flex align-items-center">
         <a class="navbar-brand">
-            <img alt="Logo" style="max-height:90px;" th:src="@{/images/logo.png}"/>
+            <img alt="Logo" style="max-height:90px;" th:src="@{/images/logo.png}">
         </a>
         <div>
-            <a class="btn btn-outline-secondary" th:href="@{/admin/usuarios}">
-                Volver
-            </a>
+            <form class="d-inline" method="post" th:action="@{/logout}">
+                <!-- Token CSRF -->
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <button class="btn btn-outline-primary" type="submit">
+                    Cerrar sesión
+                </button>
+            </form>
         </div>
     </div>
 </nav>
@@ -104,6 +109,11 @@
                 <button class="btn btn-primary" type="submit">
                     Crear usuario
                 </button>
+            </div>
+            <div class="d-grid mt-4">
+                <a class="btn btn-outline-secondary"
+                   th:href="@{/admin/usuarios}"> Cancelar
+                </a>
             </div>
         </form>
     </div>
