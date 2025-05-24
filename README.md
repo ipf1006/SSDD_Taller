@@ -7,9 +7,10 @@
 
 - **Java 17**
 - **Spring Boot 3.4.4**
-- **Spring Data JPA + Hibernate**
 - **Spring Security**
-- **Thymeleaf**
+- **Spring Data JPA & Hibernate**
+- **Thymeleaf & Thymeleaf Extras SpringSecurity6**
+- **Leaflet.js & OpenStreetMap (mapa interactivo)**
 - **Docker & Docker Compose**
 - **MySQL 8**
 - **Maven**
@@ -22,7 +23,7 @@
 
 ## ▶️ ¿Cómo levantar el proyecto?
 
-Desde la raíz del proyecto donde está el archivo `docker-compose.yml`, ejecuta:
+Desde la raíz del proyecto, donde está el archivo `docker-compose.yml`, ejecuta:
 
 ```bash
 docker-compose up --build
