@@ -58,14 +58,6 @@ public class UsuarioService {
     }
 
     /**
-     * Lista todos los usuarios de la base de datos.
-     */
-    @Transactional(readOnly = true)
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
-    }
-
-    /**
      * Busca un usuario por su ID o lanza IllegalArgumentException si no existe.
      */
     @Transactional(readOnly = true)
@@ -86,7 +78,7 @@ public class UsuarioService {
      * Comprueba duplicados y encripta la password.
      */
     @Transactional
-    public Usuario registrar(UsuarioPswDto usuarioPswDto) {
+    public void registrar(UsuarioPswDto usuarioPswDto) {
         // Comprueba duplicados
         if (usuarioRepository.existsByUsername(usuarioPswDto.getUsername())) {
             throw new IllegalArgumentException("El nombre de usuario ya existe.");
@@ -100,8 +92,8 @@ public class UsuarioService {
         u.setEmail(usuarioPswDto.getEmail());
         u.setPassword(passwordEncoder.encode(usuarioPswDto.getPassword()));
         u.setRole("USER");
-        // Persiste
-        return usuarioRepository.save(u);
+
+        usuarioRepository.save(u);
     }
 
     /**
@@ -169,5 +161,20 @@ public class UsuarioService {
     public void eliminarPorUsername(String username) {
         Usuario u = usuarioRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("Usuario “" + username + "” no encontrado."));
         usuarioRepository.delete(u);
+    }
+
+    @Transactional
+    public void crearUsuarioDesdeAdmin(UsuarioPswDto usuarioPswDto) {
+        if (usuarioRepository.existsByUsername(usuarioPswDto.getUsername())) {
+            throw new IllegalArgumentException("El nombre de usuario ya existe.");
+        }
+        if (usuarioRepository.existsByEmail(usuarioPswDto.getEmail())) {
+            throw new IllegalArgumentException("El email ya está registrado.");
+        }
+
+        Usuario u = modelMapper.map(usuarioPswDto, Usuario.class);
+        u.setPassword(passwordEncoder.encode(usuarioPswDto.getPassword()));
+        usuarioRepository.save(u);
+
     }
 }

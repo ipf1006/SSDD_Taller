@@ -31,4 +31,6 @@ public class UsuarioPswDto {
 
     @NotBlank(message = "La confirmación de contraseña es obligatoria.")
     private String confirmPassword;
+
+    private String role;
 }
